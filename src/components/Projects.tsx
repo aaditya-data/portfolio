@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { ExternalLink, Github, BarChart3, Database, Layout } from 'lucide-react';
+import { ASSETS } from '../constants/assets';
 
 const projects = [
   {
@@ -7,7 +8,7 @@ const projects = [
     description: 'Customer segmentation, demand patterns, and campaign performance analysis.',
     tags: ['Python', 'EDA', 'Sales Analysis'],
     icon: BarChart3,
-    image: '/input_file_3.png',
+    image: ASSETS.IMAGES.PROJECTS.BLACK_FRIDAY,
     color: 'emerald',
     colorClasses: 'bg-emerald-50 text-emerald-600'
   },
@@ -16,7 +17,7 @@ const projects = [
     description: 'Revenue, cost drivers, and budget variance dashboard for business decision-making.',
     tags: ['Power BI', 'Finance', 'Dashboard'],
     icon: Layout,
-    image: '/input_file_0.png',
+    image: ASSETS.IMAGES.PROJECTS.FINANCIAL_PERFORMANCE,
     color: 'blue',
     colorClasses: 'bg-blue-50 text-blue-600'
   },
@@ -25,7 +26,7 @@ const projects = [
     description: 'Fraud detection, claim patterns, and operational risk insights.',
     tags: ['SQL', 'Risk Analysis', 'Insurance'],
     icon: Database,
-    image: '/input_file_2.png',
+    image: ASSETS.IMAGES.PROJECTS.RISK_ANALYTICS,
     color: 'indigo',
     colorClasses: 'bg-indigo-50 text-indigo-600'
   },
@@ -34,7 +35,7 @@ const projects = [
     description: 'Customer behavior analysis and membership response prediction.',
     tags: ['Marketing', 'Prediction', 'Analysis'],
     icon: BarChart3,
-    image: '/input_file_4.png',
+    image: ASSETS.IMAGES.PROJECTS.SUPERSTORE,
     color: 'rose',
     colorClasses: 'bg-rose-50 text-rose-600'
   },
@@ -43,7 +44,7 @@ const projects = [
     description: 'Transaction monitoring, fraud detection, and payment platform performance insights.',
     tags: ['Data Analysis', 'UPI', 'Fintech'],
     icon: Database,
-    image: '/input_file_1.png',
+    image: ASSETS.IMAGES.PROJECTS.UPI_TRANSACTIONS,
     color: 'purple',
     colorClasses: 'bg-purple-50 text-purple-600'
   }

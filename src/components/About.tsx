@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { User, Target, GraduationCap } from 'lucide-react';
+import { ASSETS } from '../constants/assets';
 
 export default function About() {
   return (
@@ -13,16 +14,16 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="aspect-square rounded-3xl bg-slate-200 overflow-hidden relative group border-4 border-white shadow-2xl">
+            <div className="aspect-video md:aspect-square rounded-3xl bg-slate-900 overflow-hidden relative group border-4 border-white shadow-2xl">
               <img 
-                src="/input_file_0.png" 
-                alt="Aaditya Prasad" 
+                src={ASSETS.IMAGES.AVATAR} 
+                alt="Aaditya Prasad Avatar" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
                 decoding="async"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-60" />
             </div>
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-600 rounded-2xl -z-10 shadow-lg" />
           </motion.div>
