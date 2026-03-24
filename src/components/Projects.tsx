@@ -68,7 +68,7 @@ export default function Projects() {
       setLoadingImages(newLoading);
 
       await Promise.all(projectsData.map(async (project) => {
-        const img = await generateProjectImage(project.prompt);
+        const img = await generateProjectImage(project.title, project.prompt);
         newImages[project.title] = img;
         setProjectImages(prev => ({ ...prev, [project.title]: img }));
         setLoadingImages(prev => ({ ...prev, [project.title]: false }));
