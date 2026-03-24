@@ -14,7 +14,7 @@ This is my personal portfolio website built as an **AI-assisted project using Go
 - Risk Analytics in Insurance Domain  
 
 ## 🌍 Live Demo
-(aadityaprasad.me)
+[Visit My Portfolio](https://aadityaprasad.me)
 
 ## 🤖 Note
 This website was created with the help of Google AI Studio as an AI-based project.
