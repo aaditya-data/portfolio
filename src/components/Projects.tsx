@@ -1,6 +1,7 @@
-import { motion } from 'motion/react';
-import { ExternalLink, Github, BarChart3, Database, Layout } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
+import { ExternalLink, Github, BarChart3, Database, Layout, X, ZoomIn } from 'lucide-react';
 import { ASSETS } from '../constants/assets';
+import { useState } from 'react';
 
 const projects = [
   {
@@ -51,6 +52,8 @@ const projects = [
 ];
 
 export default function Projects() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <section id="projects" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -81,23 +84,32 @@ export default function Projects() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="group glass rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border-slate-100 flex flex-col h-full"
             >
-              <div className="relative aspect-video overflow-hidden bg-slate-50 border-b border-slate-100">
+              <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 border-b border-slate-100">
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                  <div className="flex gap-3">
-                    <button className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-slate-900 transition-all">
-                      <ExternalLink size={18} />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                  <div className="flex gap-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <button 
+                      onClick={() => setSelectedImage(project.image)}
+                      className="w-12 h-12 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-xl"
+                      title="Zoom Image"
+                    >
+                      <ZoomIn size={20} />
                     </button>
-                    <button className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-slate-900 transition-all">
-                      <Github size={18} />
+                    <button className="w-12 h-12 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-xl">
+                      <ExternalLink size={20} />
                     </button>
+                  </div>
+                </div>
+                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
+                    <Github size={16} />
                   </div>
                 </div>
               </div>
@@ -124,6 +136,37 @@ export default function Projects() {
           ))}
         </div>
       </div>
+
+      {/* Image Lightbox Modal */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] bg-slate-900/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-12 cursor-zoom-out"
+          >
+            <motion.button
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-all"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X size={24} />
+            </motion.button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={selectedImage}
+              alt="Project Full View"
+              className="max-w-full max-h-full rounded-2xl shadow-2xl object-contain"
+              referrerPolicy="no-referrer"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

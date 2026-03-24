@@ -14,18 +14,27 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="aspect-video md:aspect-square rounded-3xl bg-slate-900 overflow-hidden relative group border-4 border-white shadow-2xl">
+            <div className="aspect-square max-w-md mx-auto rounded-3xl bg-slate-900 overflow-hidden relative group border-4 border-white shadow-2xl">
               <img 
                 src={ASSETS.IMAGES.AVATAR} 
                 alt="Aaditya Prasad Avatar" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 loading="lazy"
                 decoding="async"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent opacity-60" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60" />
+              
+              {/* Decorative badge */}
+              <div className="absolute bottom-6 left-6 glass px-4 py-2 rounded-xl text-white text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                Available for Hire
+              </div>
             </div>
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-600 rounded-2xl -z-10 shadow-lg" />
+            
+            {/* Background decorative elements */}
+            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-blue-600/20 rounded-3xl -z-10 blur-2xl" />
+            <div className="absolute -top-6 -left-6 w-32 h-32 bg-indigo-600/20 rounded-3xl -z-10 blur-2xl" />
           </motion.div>
 
           <motion.div

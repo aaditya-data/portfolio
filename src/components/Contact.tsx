@@ -1,7 +1,42 @@
 import { motion } from 'motion/react';
-import { Mail, Linkedin, Github, Send, MapPin } from 'lucide-react';
+import { Mail, Linkedin, Github, Send, MapPin, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import React, { useState } from 'react';
 
 export default function Contact() {
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('loading');
+    
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch('https://formspree.io/f/aadityapd29@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        (e.target as HTMLFormElement).reset();
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.error || 'Something went wrong. Please try again.');
+        setStatus('error');
+      }
+    } catch (error) {
+      setErrorMessage('Network error. Please check your connection.');
+      setStatus('error');
+    }
+  };
+
   return (
     <section id="contact" className="py-24 bg-white relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600" />
@@ -68,37 +103,76 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
             className="glass p-8 rounded-3xl shadow-xl"
           >
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid md:grid-cols-2 gap-6">
+            {status === 'success' ? (
+              <div className="h-full flex flex-col items-center justify-center text-center py-12">
+                <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-6">
+                  <CheckCircle2 size={40} />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Message Sent!</h3>
+                <p className="text-slate-600 mb-8">
+                  Thank you for reaching out. I'll get back to you as soon as possible.
+                </p>
+                <button 
+                  onClick={() => setStatus('idle')}
+                  className="px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all"
+                >
+                  Send Another Message
+                </button>
+              </div>
+            ) : (
+              <form className="space-y-6" onSubmit={handleSubmit}>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Name</label>
+                    <input 
+                      required
+                      name="name"
+                      type="text" 
+                      placeholder="John Doe"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Email</label>
+                    <input 
+                      required
+                      name="email"
+                      type="email" 
+                      placeholder="john@example.com"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                    />
+                  </div>
+                </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Name</label>
-                  <input 
-                    type="text" 
-                    placeholder="John Doe"
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Message</label>
+                  <textarea 
+                    required
+                    name="message"
+                    rows={4}
+                    placeholder="Tell me about your project..."
                     className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Email</label>
-                  <input 
-                    type="email" 
-                    placeholder="john@example.com"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Message</label>
-                <textarea 
-                  rows={4}
-                  placeholder="Tell me about your project..."
-                  className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                />
-              </div>
-              <button className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
-                Send Message <Send size={18} />
-              </button>
-            </form>
+
+                {status === 'error' && (
+                  <div className="flex items-center gap-2 text-rose-600 text-sm bg-rose-50 p-4 rounded-xl border border-rose-100">
+                    <AlertCircle size={18} />
+                    {errorMessage}
+                  </div>
+                )}
+
+                <button 
+                  disabled={status === 'loading'}
+                  className="w-full py-4 bg-blue-600 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all shadow-lg shadow-blue-100 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {status === 'loading' ? (
+                    <>Sending... <Loader2 size={18} className="animate-spin" /></>
+                  ) : (
+                    <>Send Message <Send size={18} /></>
+                  )}
+                </button>
+              </form>
+            )}
           </motion.div>
         </div>
         
