@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || '' });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || 'AIzaSyC2NxnbMTXBvU2vWcwZ_Q8wzixA84HfERw' });
 
 // High-quality static fallbacks for specific project types to ensure portfolio looks professional even if API is down
 const FALLBACK_IMAGES: Record<string, string> = {
