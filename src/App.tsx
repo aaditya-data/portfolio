@@ -4,6 +4,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Certifications from './components/Certifications';
+import Resume from './components/Resume';
 import Contact from './components/Contact';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Skills />
         <Projects />
         <Certifications />
+        <Resume />
         <Contact />
       </main>
     </div>
