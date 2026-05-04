@@ -4,7 +4,7 @@ import { Database, Table, Layout, Search, Code, PieChart } from 'lucide-react';
 const skills = [
   {
     name: "MS Excel",
-    icon: "https://cdn.simpleicons.org/microsoftexcel/217346",
+    icon: "https://img.icons8.com/color/96/microsoft-excel-2019--v1.png",
     type: "Data Analysis"
   },
   {
@@ -19,7 +19,7 @@ const skills = [
   },
   {
     name: "Power BI",
-    icon: "https://cdn.simpleicons.org/powerbi/F2C811",
+    icon: "https://img.icons8.com/color/96/power-bi.png",
     type: "Data Visualization"
   },
   {
@@ -39,7 +39,7 @@ const skills = [
   },
   {
     name: "Seaborn",
-    icon: "https://cdn.simpleicons.org/seaborn/3776AB",
+    icon: "https://seaborn.pydata.org/_static/logo-wide-lightbg.svg",
     type: "Statistical Visualization"
   }
 ];
